@@ -5,11 +5,22 @@
  */
 
 window.onload = () => { // ウィンドウの読み込みが終わってから以下の処理を行う
-    // 手の種類を変数に代入
+    /**
+     * 手一覧
+     * @type {Array.<string>}
+     */
     const hands = ['goo', 'choki', 'pa'];
+
+    /**
+     * 手一覧（日本語）
+     * @type {Array.<string>}
+     */
     const handsJa = ['ぐー', 'ちょき', 'ぱー'];
 
-    // 各ボタンのオブジェクトを配列に格納
+    /**
+     * ボタンのオブジェクト一覧
+     * @type {Array}
+     */
     const buttons = hands.reduce((result, hand) =>
         result.concat([document.getElementById(hand)])
     , []);
@@ -22,16 +33,23 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
     /**
      * じゃんけんの処理
      * 
-     * @param string hand 
+     * @param {string} playerHand
+     * @return {void} 
      */
     function janken(playerHand) {
         // ボタンを無効化
         disabledButtons();
         
-        // 相手の手を決定する
+        /**
+         * 相手の手
+         * @type {string}
+         */
         const enemyHand = getEnemyHand();
 
-        // プレーヤーの手と相手の手から結果を取得する
+        /**
+         * 対戦結果
+         * @type {number}
+         */
         const result = judge(playerHand, enemyHand);
 
         // 選んだ手の確認メッセージを表示する
@@ -62,6 +80,8 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
 
     /**
      * ボタンを選択無効化する
+     *
+     * @return {void}
      */
     function disabledButtons() {
         buttons.forEach(button => button.setAttribute('disabled', 'true'));
@@ -69,6 +89,8 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
 
     /**
      * 相手の手をランダムに取得する
+     * 
+     * @return {string}
      */
     function getEnemyHand() {
         return hands[random(0, 2)];
@@ -77,8 +99,9 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
     /**
      * minからmaxまでの間の整数をランダムで返す
      * 
-     * @param int min 
-     * @param int max
+     * @param {number} min 
+     * @param {number} max
+     * @return {number}
      */
     function random(min, max) {
         return Math.floor(Math.random() * (max + 1 - min)) + min;
@@ -87,8 +110,9 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
     /**
      * 渡された手の値から判断して、勝ちの場合は1、負けの場合は-1、あいこの場合は0を返す
      * 
-     * @param string playerHand 
-     * @param string enemyHand 
+     * @param {string} playerHand 
+     * @param {string} enemyHand
+     * @return {number}
      */
     function judge(playerHand, enemyHand) {
         if (playerHand === enemyHand) {
@@ -110,7 +134,8 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
     /**
      * 引数で与えられた文字列を画面に表示する（既に表示されている場合は行を追加する）
      * 
-     * @param string msg 
+     * @param {string} msg
+     * @return {void}
      */
     function message(msg) {
         const current = document.getElementById("message").innerHTML;
@@ -120,7 +145,8 @@ window.onload = () => { // ウィンドウの読み込みが終わってから�
     /**
      * 渡された手の種類の文字列（アルファベット）を日本語に変換して返す
      * 
-     * @param string hand 
+     * @param {string} hand
+     * @return {string}
      */
     function trans(hand) {
         const index = hands.indexOf(hand);
